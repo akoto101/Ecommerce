@@ -1,6 +1,8 @@
 package com.hci.ecommerce.Data_Manager;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hci.ecommerce.Item_Viewer;
 import com.hci.ecommerce.R;
 
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ public class Product_Adapter extends ArrayAdapter<Model> {
 
     static  class ViewHolder
     {
+        CardView card_product1,card_product2;
         ImageView img_product1,img_product2;
         TextView txt_product_name1,txt_product_name2,txt_product_price1,txt_product_price2;
         ImageView imgbtn_Cart,imgBtn_fav,imgbtn_Cart2,imgBtn_fav2;
@@ -34,8 +39,8 @@ public class Product_Adapter extends ArrayAdapter<Model> {
 
     @Override
     public View getView(int position,  View convertView, ViewGroup parent) {
-        Model dataModel = getItem(position);
-        ViewHolder viewHolder;
+        final Model dataModel = getItem(position);
+        final ViewHolder viewHolder;
         final View result;
 
         if(convertView == null)
@@ -56,6 +61,12 @@ public class Product_Adapter extends ArrayAdapter<Model> {
             viewHolder.imgBtn_fav = convertView.findViewById(R.id.img_Fav);
             viewHolder.imgBtn_fav2 = convertView.findViewById(R.id.img_Fav2);
 
+            viewHolder.card_product1 = convertView.findViewById(R.id.card_item1);
+            viewHolder.card_product2 = convertView.findViewById(R.id.card_item2);
+
+
+
+
             result = convertView;
             convertView.setTag(viewHolder);
         }
@@ -67,9 +78,74 @@ public class Product_Adapter extends ArrayAdapter<Model> {
         viewHolder.img_product1.setImageResource(dataModel.getProduct1());
         viewHolder.img_product2.setImageResource(dataModel.getProduct2());
         viewHolder.txt_product_name1.setText(dataModel.getProduct_name_1());
-                viewHolder.txt_product_name2 .setText(dataModel.getProduct_name_2());
-                        viewHolder.txt_product_price1 .setText(dataModel.getProduct_price_1());
-                                viewHolder.txt_product_price2 .setText(dataModel.getProduct_price_2());
+        viewHolder.txt_product_name2 .setText(dataModel.getProduct_name_2());
+        viewHolder.txt_product_price1 .setText(dataModel.getProduct_price_1());
+        viewHolder.txt_product_price2 .setText(dataModel.getProduct_price_2());
+
+        viewHolder.card_product1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,dataModel.getProduct_name_1().toString(),Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, Item_Viewer.class));
+            }
+        });
+
+        viewHolder.card_product2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,dataModel.getProduct_name_2().toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewHolder.imgbtn_Cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,dataModel.getProduct_name_1() + " successfully added",Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewHolder.imgbtn_Cart2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,dataModel.getProduct_name_2() + " successfully added",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewHolder.imgBtn_fav.setOnClickListener(new View.OnClickListener() {
+            boolean status = false;
+            @Override
+            public void onClick(View v) {
+
+                if(!status)
+                {
+                    viewHolder.imgBtn_fav.setImageResource(R.drawable.fav_true);
+                    status = true;
+
+                }
+                else
+                    {
+                        viewHolder.imgBtn_fav.setImageResource(R.drawable.fav_false);
+                        status = false;
+
+                    }
+            }
+        });
+
+        viewHolder.imgBtn_fav2.setOnClickListener(new View.OnClickListener() {
+            boolean status = false;
+            @Override
+            public void onClick(View v) {
+
+                if(!status)
+                {
+                    viewHolder.imgBtn_fav2.setImageResource(R.drawable.fav_true);
+                    status = true;
+                }
+                else
+                {
+                    viewHolder.imgBtn_fav2.setImageResource(R.drawable.fav_false);
+                }
+            }
+        });
         return convertView;
     }
 }

@@ -12,6 +12,30 @@ public class Model {
     private String product_price_1;
     private String product_price_2;
 
+    private int cart_product_image;
+
+    private String cart_product_name;
+    private  String cart_product_price;
+    private  String cart_product_quantity;
+
+    public Model(int ID, int cart_product_image, String cart_product_name, String cart_product_price, String cart_product_quantity) {
+        this.ID = ID;
+        this.cart_product_image = cart_product_image;
+        this.cart_product_name = cart_product_name;
+        this.cart_product_price = cart_product_price;
+        this.cart_product_quantity = cart_product_quantity;
+    }
+
+    public Model(int cart_product_image, String cart_product_name, String cart_product_price, String cart_product_quantity) {
+        this.cart_product_image = cart_product_image;
+        this.cart_product_name = cart_product_name;
+        this.cart_product_price = cart_product_price;
+        this.cart_product_quantity = cart_product_quantity;
+    }
+
+
+
+
     public Model()
     {
 
@@ -77,5 +101,37 @@ public class Model {
 
     public void setProduct_price_2(String product_price_2) {
         this.product_price_2 = product_price_2;
+    }
+
+    public int getCart_product_image() {
+        return cart_product_image;
+    }
+
+    public void setCart_product_image(int cart_product_image) {
+        this.cart_product_image = cart_product_image;
+    }
+
+    public String getCart_product_name() {
+        return cart_product_name;
+    }
+
+    public void setCart_product_name(String cart_product_name) {
+        this.cart_product_name = cart_product_name;
+    }
+
+    public String getCart_product_price() {
+        return cart_product_price;
+    }
+
+    public void setCart_product_price(String cart_product_price) {
+        this.cart_product_price = cart_product_price;
+    }
+
+    public String getCart_product_quantity() {
+        return cart_product_quantity;
+    }
+
+    public void setCart_product_quantity(String cart_product_quantity) {
+        this.cart_product_quantity = cart_product_quantity;
     }
 }
